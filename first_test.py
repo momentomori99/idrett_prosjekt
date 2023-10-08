@@ -13,6 +13,9 @@ strike = np.array([0, 100]) #the force exceeded by the legs while running upward
 t = np.zeros(N)
 v = np.zeros([N,2])
 p = np.zeros([N,2])
+K_e = np.zeros(N) #kinetic energy
+P_e = np.zeros(N) #potential energy
+
 
 
 
@@ -30,10 +33,18 @@ for i in range(N-1):
     p[i + 1] = p[i] + v[i]*dt
     v[i + 1] = v[i] + a * dt
     t[i + 1] = t[i] + dt
+    K_e[i] = 0.5*mass*np.linalg.norm(v[i])**2
+    P_e[i] = mass*g*p[i,1]
 
 
 
 #print(p[:,0])
 plt.plot(p[:,0], p[:,1])
 plt.grid(1)
+plt.show()
+
+plt.plot(t, K_e, label="kinetic")
+plt.plot(t, P_e, label="potential")
+plt.grid(1)
+plt.legend()
 plt.show()
